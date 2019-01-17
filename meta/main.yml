@@ -1,4 +1,0 @@
----
-dependencies:
-  - role:       'automatic_updates'
-    when:       skipdeps is not defined
