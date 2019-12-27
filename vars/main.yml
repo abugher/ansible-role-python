@@ -4,10 +4,11 @@ install_packages:
   # in turn is required for the total happiness of urllib3, which is
   # used by pip, which I use (I think) to update python packages.
   # Necessary as of 2015-08-01.
-  - 'libffi-dev'
-  - 'python-dev'
-  - 'libssl-dev'
-  - 'python-pip'
+  - 'libffi-dev' # required to compile pyOpenSSL
+  - 'python-dev' # ?
+  - 'libssl-dev' # ?
+  - 'python-pip' # ? (pip's pip instead of debian's pip ... why?)
+  #- 'pkg-config' # required by pycairo - pycairo not required, 2019-12-27
 install_files:
   - owner:              'root'
     group:              'root'
