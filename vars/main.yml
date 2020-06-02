@@ -4,6 +4,8 @@ install_packages:
   # in turn is required for the total happiness of urllib3, which is
   # used by pip, which I use (I think) to update python packages.
   # Necessary as of 2015-08-01.
+  - 'gcc'
+  - 'g++'
   - 'libffi-dev' # required to compile pyOpenSSL
   - 'python-dev' # ?
   - 'libssl-dev' # ?
