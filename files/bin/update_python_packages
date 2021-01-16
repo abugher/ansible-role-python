@@ -6,6 +6,11 @@
 #
 # requires pip and probably python-dev
 
+function pip() {
+  # pip looks for python, but can't find python3.
+  python3 -m pip "${@}"
+}
+
 # pip doesn't list pip as an installed package, so it gets skipped below.
 pip install -U pip || {
   echo -e "ERROR:  Failed to upgrade pip." >&2
