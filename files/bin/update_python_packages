@@ -34,12 +34,8 @@ for p in $(
   echo "${p}"
 done
 
-# flexget 1.2.351 requires guessit<0.10.4,>=0.9.3.  Current latest guessit
-# is 0.11.0.  The updates above always leave flexget broken.  This crude
-# hack fixes it.  --Aaron 2015-09-16
-#if test 'neuron' = $HOSTNAME; then
-# Less crude.  --Aaron 2016-12-15 (should be timestamped in git, now, but
-# I'm feeling nostalgic)
-if type pip > /dev/null 2>&1 && pip search FlexGet 2>&1 | grep -q INSTALLED; then
+# FlexGet relies on specific versions of other packages.  The latest versions
+# get installed above; this follow-up should install the required versions.
+if type pip > /dev/null 2>&1 && pip freeze | grep -q '^FlexGet=='; then
   pip install -U FlexGet
 fi
