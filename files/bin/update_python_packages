@@ -11,23 +11,18 @@ function pip() {
   python3 -m pip "${@}"
 }
 
-# pip doesn't list pip as an installed package, so it gets skipped below.
-pip install -U pip || {
-  echo -e "ERROR:  Failed to upgrade pip." >&2
-  exit 1
-}
-
 for p in $(
-  pip freeze --local \
+#  pip freeze \
+  pip list --local --not-required --format freeze \
     | grep -vE '^\-e|^#' \
     | cut -d = -f 1 
 ); do 
   # temperusb is not from pip, and has out-of-pip dependencies.
-  if test 'temperusb' = $p; then
-    continue
-  fi
+#  if test 'temperusb' = $p; then
+#    continue
+#  fi
 
-  pip install -U $p || {
+  pip install -U -I $p || {
     echo -e "ERROR:  Failed to upgrade ${p}." >&2
     exit 1
   }
@@ -36,6 +31,6 @@ done
 
 # FlexGet relies on specific versions of other packages.  The latest versions
 # get installed above; this follow-up should install the required versions.
-if type pip > /dev/null 2>&1 && pip freeze | grep -q '^FlexGet=='; then
-  pip install -U FlexGet
-fi
+#if type pip > /dev/null 2>&1 && pip freeze | grep -q '^FlexGet=='; then
+#  pip install -U FlexGet
+#fi
