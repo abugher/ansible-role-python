@@ -22,7 +22,7 @@ for p in $(
 #    continue
 #  fi
 
-  pip install -U -I $p || {
+  pip install --break-system-packages -U -I $p || {
     echo -e "ERROR:  Failed to upgrade ${p}." >&2
     exit 1
   }
