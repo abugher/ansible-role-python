@@ -5,6 +5,7 @@
 install_packages:
   - 'python3-pip'
   - 'python3-setuptools'  #  Undeclared dependency.  See comment above.
+  - 'python3-virtualenv'
 install_files:
   - owner:              'root'
     group:              'root'

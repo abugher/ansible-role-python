@@ -1,36 +1,18 @@
 #!/bin/bash
 
-# DISTRIBUTED BY ANSIBLE
-
-# update_python_packages
-#
-# requires pip and probably python-dev
-
-function pip() {
-  # pip looks for python, but can't find python3.
-  python3 -m pip "${@}"
-}
-
-for p in $(
-#  pip freeze \
-  pip list --local --not-required --format freeze \
-    | grep -vE '^\-e|^#' \
-    | cut -d = -f 1 
-); do 
-  # temperusb is not from pip, and has out-of-pip dependencies.
-#  if test 'temperusb' = $p; then
-#    continue
-#  fi
-
-  pip install --break-system-packages -U -I $p || {
-    echo -e "ERROR:  Failed to upgrade ${p}." >&2
-    exit 1
-  }
-  echo "${p}"
+shopt -s nullglob
+ret=0
+for venv in /usr/local/python-packages/*; do
+  package="${venv##*/}"
+  "${venv}"/bin/pip3 \
+    install \
+    -U \
+    --require-virtualenv \
+    --upgrade-strategy eager \
+    "${package}"
+  if ! test 0 = "${?}"; then
+    ret=1
+  fi
 done
 
-# FlexGet relies on specific versions of other packages.  The latest versions
-# get installed above; this follow-up should install the required versions.
-#if type pip > /dev/null 2>&1 && pip freeze | grep -q '^FlexGet=='; then
-#  pip install -U FlexGet
-#fi
+exit "${ret}"
