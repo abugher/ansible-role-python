@@ -1,5 +1,14 @@
 #!/bin/bash
 
+target_user='python-packages'
+
+printf "Current user:  '%s'\n" "${USER}"
+
+if ! test "${target_user}" = "${USER}"; then
+  printf "Switching user to:  '%s'\n" "${target_user}"
+  exec su - "${target_user}" "${0}" "${@}"
+fi
+
 shopt -s nullglob
 ret=0
 for venv in /usr/local/python-packages/*; do

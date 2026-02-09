@@ -1,4 +1,8 @@
 ---
+user_groups:
+  - 'python-packages'
+users:
+  - 'python-packages'
 # pip3, as provided by python3-pip, fails to install packages until setuptools
 # is available but does not depend on python3-setuptools, nor does installation
 # of upstream setuptools happen automatically at install or run time.
@@ -12,4 +16,3 @@ install_files:
     mode:               '0755'
     src:                "{{ role_path }}/files/bin/update_python_packages"
     dest:               '/usr/local/bin/update_python_packages'
-
