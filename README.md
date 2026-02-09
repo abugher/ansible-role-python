@@ -1,3 +1,7 @@
+# Issues:
+
+## breakage during OS major version upgrade
+
 After an OS major version upgrade (bookworm to trixie), during python package updates, I started seeing errors like this:
 
 ```
@@ -9,4 +13,7 @@ ModuleNotFoundError: No module named 'pip'
 
 I removed `/usr/local/python-packages/flexget/`, reapplied the `flexget` role, and that seemed to fix the problem.  I do not understand exactly what went wrong, but watch out for this during OS major version upgrades.
 
-    
+
+## privileges
+
+Consider creating a dedicated user to install and update python packages and to own `/usr/local/python-packages`.  There may be no reason to run `pip3` as root.
